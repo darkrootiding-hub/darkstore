@@ -1,0 +1,1993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APK STORE - Premium Repository</title>
+    <!-- Modern Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ========================================================= */
+        /* VARIABLES & RESET */
+        /* ========================================================= */
+        :root {
+            --primary: #00C853; /* Vibrant Green */
+            --primary-dark: #009624;
+            --accent: #2979FF;
+            --bg-color: #F0F2F5;
+            --text-main: #1a1a1a;
+            --text-sub: #5f6368;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 8px 24px rgba(0, 200, 83, 0.15);
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --featured-color: #ff6b6b;
+            --paid-color: #ff5252;
+            --free-color: #00C853;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            font-size: 14px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            /* Subtle Animated Background Mesh */
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(0, 200, 83, 0.03) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(41, 121, 255, 0.03) 0px, transparent 50%);
+            background-attachment: fixed;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* ========================================================= */
+        /* LOADER ANIMATION */
+        /* ========================================================= */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            transition: opacity 0.6s ease, visibility 0.6s;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Modern Pulse Loader */
+        .loader-logo {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            animation: bounce 1s infinite alternate;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 200, 83, 0.1);
+            border-left-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes bounce { to { transform: translateY(-10px); } }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ========================================================= */
+        /* GLASS HEADER - MOBILE FRIENDLY */
+        /* ========================================================= */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 12px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin: 0 auto;
+            gap: 10px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s var(--transition-bounce);
+            flex-shrink: 0;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            font-size: 24px;
+            color: var(--primary);
+            margin-right: 8px;
+            background: -webkit-linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo h1 {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            white-space: nowrap;
+        }
+
+        /* Enhanced Search Bar for Mobile */
+        .search-container {
+            flex: 1;
+            min-width: 0;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border-radius: 25px;
+            border: 1.5px solid transparent;
+            background-color: #f1f3f4;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            color: var(--text-main);
+        }
+
+        .search-box:focus {
+            background-color: #fff;
+            border-color: var(--primary);
+            box-shadow: 0 4px 15px rgba(0, 200, 83, 0.15);
+            transform: scale(1.02);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9aa0a6;
+            transition: color 0.3s;
+            font-size: 14px;
+        }
+
+        .search-box:focus + .search-icon {
+            color: var(--primary);
+        }
+
+        /* Advanced Filters */
+        .advanced-filters {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-left: 10px;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 1px solid #eee;
+            color: var(--text-sub);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s var(--transition-bounce);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .filter-btn:hover, .filter-btn:active {
+            background-color: var(--accent);
+            color: white;
+            box-shadow: 0 4px 12px rgba(41, 121, 255, 0.3);
+            transform: rotate(15deg);
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .user-actions button {
+            background: white;
+            border: 1px solid #eee;
+            color: var(--text-sub);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s var(--transition-bounce);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-actions button:hover, .user-actions button:active {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 200, 83, 0.3);
+            transform: rotate(15deg);
+        }
+
+        /* ========================================================= */
+        /* UI COMPONENTS - MOBILE FRIENDLY */
+        /* ========================================================= */
+        .container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        /* Enhanced Category Tabs - Mobile Optimized */
+        .category-tabs {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px 0 20px 0;
+            gap: 8px;
+            scrollbar-width: none;
+            position: relative;
+            -webkit-overflow-scrolling: touch;
+        }
+        .category-tabs::-webkit-scrollbar { display: none; }
+
+        .category-tabs button {
+            background: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-sub);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            transition: all 0.3s var(--transition-bounce);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .category-tabs button i {
+            font-size: 14px;
+        }
+
+        .category-tabs button:active {
+            transform: translateY(-2px);
+            color: var(--primary);
+        }
+
+        .category-tabs button.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 200, 83, 0.3);
+            transform: scale(1.05);
+        }
+
+        .category-tabs button.featured {
+            background: linear-gradient(135deg, var(--featured-color), #ff8a8a);
+            color: white;
+            position: relative;
+        }
+
+        .category-tabs button.featured::before {
+            content: '⭐';
+            margin-right: 4px;
+            font-size: 12px;
+        }
+
+        /* Enhanced Filter Controls - Mobile Optimized */
+        .filter-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px 0 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            position: relative;
+            padding-left: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title i {
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 20px;
+            width: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        select {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1.5px solid #ddd;
+            background: white;
+            cursor: pointer;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            min-width: 0;
+            flex: 1;
+        }
+
+        select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(0, 200, 83, 0.1);
+        }
+
+        .stats-badge {
+            background: rgba(0, 200, 83, 0.1);
+            color: var(--primary);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        /* ========================================================= */
+        /* ENHANCED APP GRID & CARDS - MOBILE FRIENDLY */
+        /* ========================================================= */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            perspective: 1000px;
+        }
+
+        .app-card {
+            background: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s var(--transition-bounce);
+            cursor: pointer;
+            border: 1px solid transparent;
+            opacity: 0; /* For animation */
+            animation: cardEntrance 0.5s ease forwards;
+            position: relative;
+        }
+
+        /* Featured App Styling */
+        .app-card.featured {
+            border: 1.5px solid var(--featured-color);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.15);
+        }
+
+        .app-card.featured::before {
+            content: '⭐ FEATURED';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--featured-color);
+            color: white;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 3px 6px;
+            border-radius: 10px;
+            z-index: 2;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* STAGGERED ANIMATION DELAYS */
+        .app-card:nth-child(1) { animation-delay: 0.1s; }
+        .app-card:nth-child(2) { animation-delay: 0.15s; }
+        .app-card:nth-child(3) { animation-delay: 0.2s; }
+        .app-card:nth-child(4) { animation-delay: 0.25s; }
+        .app-card:nth-child(5) { animation-delay: 0.3s; }
+        .app-card:nth-child(6) { animation-delay: 0.35s; }
+
+        @keyframes cardEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .app-card:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 10px rgba(0, 200, 83, 0.2);
+            border-color: rgba(0, 200, 83, 0.3);
+        }
+
+        .app-icon {
+            padding: 12px;
+            background: radial-gradient(circle at center, #fff 0%, #f9f9f9 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            min-height: 120px;
+        }
+
+        .app-icon img {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .app-card:active .app-icon img {
+            transform: scale(1.05) rotate(1deg);
+        }
+
+        /* App Status Badge */
+        .app-status {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 3px 6px;
+            border-radius: 10px;
+            z-index: 2;
+        }
+
+        .status-active {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-inactive {
+            background-color: #f8d7da;
+            color: #721c24;
+            opacity: 0.7;
+        }
+
+        .app-info {
+            padding: 12px;
+            position: relative;
+        }
+
+        .app-name {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .app-developer {
+            font-size: 11px;
+            color: #80868b;
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .app-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .app-rating {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .app-rating i {
+            color: #FFC107;
+            font-size: 11px;
+        }
+
+        .app-size {
+            font-size: 10px;
+            color: #80868b;
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 8px;
+        }
+
+        .app-price {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .price-free {
+            color: var(--free-color);
+        }
+
+        .price-paid {
+            color: var(--paid-color);
+        }
+
+        .app-downloads {
+            font-size: 10px;
+            color: #80868b;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            margin-top: 4px;
+        }
+
+        .app-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3px;
+            margin-top: 8px;
+        }
+
+        .app-tag {
+            font-size: 9px;
+            background: rgba(0, 200, 83, 0.1);
+            color: var(--primary);
+            padding: 2px 5px;
+            border-radius: 8px;
+        }
+
+        /* ========================================================= */
+        /* ENHANCED MODALS - MOBILE FRIENDLY */
+        /* ========================================================= */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center; 
+            align-items: flex-end;
+            padding: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 20px 20px 0 0;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(100%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .modal.show .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Drag Handle */
+        .modal-content::before {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 4px;
+            background: #ddd;
+            border-radius: 2px;
+            margin: 12px auto;
+            cursor: grab;
+        }
+
+        .modal-header {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .close-btn {
+            font-size: 22px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            background: #f1f3f4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .close-btn:active {
+            background: #ffcdd2;
+            color: #c62828;
+            transform: rotate(90deg);
+        }
+
+        /* Enhanced App Details for Mobile */
+        .app-detail-header {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 15px;
+        }
+
+        .detail-app-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .detail-app-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .app-detail-info {
+            flex: 1;
+            width: 100%;
+        }
+
+        .detail-app-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .detail-app-developer {
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-bottom: 15px;
+        }
+
+        .detail-meta {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .detail-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .detail-meta-label {
+            font-size: 11px;
+            color: #80868b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-meta-value {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .detail-app-rating {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            justify-content: center;
+        }
+
+        .install-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 200, 83, 0.4);
+            transition: all 0.3s var(--transition-bounce);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .install-btn:active {
+            background: var(--primary-dark);
+            transform: scale(0.98);
+            box-shadow: 0 2px 10px rgba(0, 200, 83, 0.3);
+        }
+
+        .install-btn.paid {
+            background: var(--paid-color);
+            box-shadow: 0 4px 15px rgba(255, 82, 82, 0.4);
+        }
+
+        .install-btn.paid:active {
+            background: #ff1744;
+            box-shadow: 0 2px 10px rgba(255, 82, 82, 0.3);
+        }
+
+        .app-description {
+            padding: 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #eee;
+            line-height: 1.6;
+            color: #444;
+            font-size: 14px;
+        }
+
+        .app-detail-tags {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .detail-tag {
+            background: rgba(0, 200, 83, 0.1);
+            color: var(--primary);
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        /* ========================================================= */
+        /* ENHANCED FILTER MODAL - MOBILE FRIENDLY */
+        /* ========================================================= */
+        .filter-modal-content {
+            padding: 20px;
+        }
+
+        .filter-group-modal {
+            margin-bottom: 20px;
+        }
+
+        .filter-group-modal h4 {
+            margin-bottom: 12px;
+            color: var(--text-main);
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .filter-option {
+            padding: 8px 14px;
+            border-radius: 18px;
+            border: 1.5px solid #ddd;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 13px;
+            flex: 1;
+            min-width: 0;
+            text-align: center;
+        }
+
+        .filter-option:active {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-option.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .price-filter {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .price-filter input {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 18px;
+            border: 1.5px solid #ddd;
+            outline: none;
+            font-size: 14px;
+        }
+
+        /* ========================================================= */
+        /* PROFILE MODAL ENHANCEMENTS - MOBILE FRIENDLY */
+        /* ========================================================= */
+        .profile-body { 
+            padding: 20px; 
+            text-align: center; 
+        }
+
+        .profile-icon-large-container {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            padding: 2px;
+            border: 2px dashed var(--primary);
+            animation: spin-slow 20s linear infinite;
+        }
+        
+        @keyframes spin-slow { 100% { transform: rotate(360deg); } }
+
+        .profile-image-large {
+            width: 100%; height: 100%; border-radius: 50%;
+            object-fit: cover;
+            animation: spin-slow 20s linear infinite reverse;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .action-btn {
+            background: white;
+            border: 1.5px solid #eee;
+            padding: 12px;
+            border-radius: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .action-btn i { 
+            font-size: 20px; 
+            color: var(--primary); 
+        }
+
+        .action-btn span {
+            font-size: 12px;
+        }
+
+        .action-btn:active {
+            border-color: var(--primary);
+            background: rgba(0, 200, 83, 0.05);
+            transform: translateY(-3px);
+        }
+
+        /* STATS SECTION */
+        .user-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-sub);
+        }
+
+        /* ========================================================= */
+        /* SETTINGS TOGGLE FIX */
+        /* ========================================================= */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        .toggle-switch input:checked + .toggle-slider {
+            background-color: var(--primary);
+        }
+
+        .toggle-switch input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 20px;
+            align-items: center;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .setting-info {
+            flex: 1;
+        }
+
+        .setting-title {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 3px;
+        }
+
+        .setting-description {
+            font-size: 12px;
+            color: #888;
+        }
+
+        /* Empty State */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px 15px;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: #aaa;
+            max-width: 300px;
+            margin: 0 auto;
+            font-size: 13px;
+        }
+
+        /* ========================================================= */
+        /* RESPONSIVENESS */
+        /* ========================================================= */
+        @media (min-width: 768px) {
+            html {
+                font-size: 16px;
+            }
+            
+            header {
+                padding: 15px 30px;
+            }
+            
+            .container {
+                max-width: 1200px;
+                padding: 20px 30px;
+            }
+            
+            .logo h1 {
+                display: block;
+            }
+            
+            .modal {
+                align-items: center;
+                padding: 20px;
+            }
+            
+            .modal-content {
+                border-radius: 24px;
+                max-width: 600px;
+                transform: scale(0.9) translateY(20px);
+                padding-bottom: 0;
+            }
+            
+            .modal.show .modal-content {
+                transform: scale(1) translateY(0);
+            }
+            
+            .modal-content::before {
+                display: none;
+            }
+            
+            .app-detail-header {
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .detail-app-rating {
+                justify-content: flex-start;
+            }
+            
+            .install-btn {
+                width: auto;
+            }
+            
+            .filter-group {
+                flex-wrap: nowrap;
+                width: auto;
+            }
+            
+            select {
+                min-width: 140px;
+                flex: none;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .app-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .category-tabs button {
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+            
+            .section-title {
+                font-size: 16px;
+            }
+            
+            .logo h1 {
+                font-size: 16px;
+            }
+        }
+
+        /* Safe Area Insets for Notch Phones */
+        @supports (padding: max(0px)) {
+            .modal-content {
+                padding-bottom: max(20px, env(safe-area-inset-bottom));
+            }
+        }
+
+        /* Prevent body scroll when modal is open */
+        body.modal-open {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader-logo"><i class="fab fa-google-play"></i></div>
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Enhanced Glass Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fab fa-google-play"></i>
+                <h1>APK STORE</h1>
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="Search apps..." id="searchInput">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <div class="advanced-filters">
+                <button class="filter-btn" title="Filters" id="openFilterBtn">
+                    <i class="fas fa-filter"></i>
+                </button>
+                <button class="filter-btn" title="Favorites" id="favoritesBtn">
+                    <i class="fas fa-heart"></i>
+                </button>
+            </div>
+            <div class="user-actions">
+                <button title="Profile" id="openProfileBtn">
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Enhanced Category Tabs -->
+        <div class="category-tabs" id="categoryTabs">
+            <button class="active" data-category="All">
+                <i class="fas fa-fire"></i> For You
+            </button>
+            <button class="featured" data-category="Featured">
+                <i class="fas fa-star"></i> Featured
+            </button>
+            <button data-category="Games">
+                <i class="fas fa-gamepad"></i> Games
+            </button>
+            <button data-category="Tools">
+                <i class="fas fa-tools"></i> Tools
+            </button>
+            <button data-category="Social">
+                <i class="fas fa-users"></i> Social
+            </button>
+        </div>
+
+        <!-- Enhanced Filter Controls -->
+        <div class="filter-controls">
+            <div>
+                <h2 id="currentCategoryTitle" class="section-title">
+                    <i class="fas fa-th-large"></i> All Apps
+                </h2>
+                <div class="stats-badge" id="appCountBadge">
+                    <i class="fas fa-mobile-alt"></i> <span id="appCount">0</span> Apps
+                </div>
+            </div>
+            <div class="filter-group">
+                <select id="sortSelector">
+                    <option value="rating">Highest Rating</option>
+                    <option value="name">Name (A-Z)</option>
+                    <option value="downloads">Most Downloads</option>
+                    <option value="newest">Newest First</option>
+                </select>
+                <select id="priceFilter">
+                    <option value="all">All Prices</option>
+                    <option value="free">Free Only</option>
+                    <option value="paid">Paid Only</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="app-grid" id="mainAppGrid">
+            <!-- Apps will be loaded here -->
+        </div>
+
+        <!-- Top Charts Section -->
+        <div class="filter-controls" style="margin-top: 30px;">
+            <h2 class="section-title">
+                <i class="fas fa-chart-line"></i> Top Charts
+            </h2>
+        </div>
+        <div class="app-grid" id="topChartsGrid"></div>
+    </div>
+
+    <!-- App Details Modal -->
+    <div class="modal" id="appModal"></div>
+
+    <!-- Filter Modal -->
+    <div class="modal" id="filterModal">
+        <div class="modal-content filter-modal-content">
+            <div class="modal-header">
+                <h3 style="flex: 1; margin: 0;">
+                    <i class="fas fa-filter"></i> Filters
+                </h3>
+                <span class="close-btn" data-modal-id="filterModal">&times;</span>
+            </div>
+            <div style="padding: 20px;">
+                <div class="filter-group-modal">
+                    <h4><i class="fas fa-star"></i> Rating</h4>
+                    <div class="filter-options">
+                        <div class="filter-option" data-rating="4">⭐ 4.0+</div>
+                        <div class="filter-option" data-rating="4.5">⭐ 4.5+</div>
+                        <div class="filter-option active" data-rating="0">All</div>
+                    </div>
+                </div>
+                
+                <div class="filter-group-modal">
+                    <h4><i class="fas fa-download"></i> Downloads</h4>
+                    <div class="filter-options">
+                        <div class="filter-option" data-downloads="1000">1K+</div>
+                        <div class="filter-option" data-downloads="10000">10K+</div>
+                        <div class="filter-option active" data-downloads="0">All</div>
+                    </div>
+                </div>
+                
+                <div class="filter-group-modal">
+                    <h4><i class="fas fa-sort-amount-up"></i> Sort By</h4>
+                    <div class="filter-options">
+                        <div class="filter-option active" data-sort="rating">Rating</div>
+                        <div class="filter-option" data-sort="downloads">Downloads</div>
+                        <div class="filter-option" data-sort="newest">Newest</div>
+                    </div>
+                </div>
+                
+                <button class="install-btn" style="width: 100%; margin-top: 20px;" id="applyFiltersBtn">
+                    <i class="fas fa-check"></i> Apply Filters
+                </button>
+                <button class="install-btn" style="width: 100%; margin-top: 10px; background: #666;" id="resetFiltersBtn">
+                    <i class="fas fa-redo"></i> Reset Filters
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div class="modal" id="profileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="flex: 1; margin: 0;">
+                    <i class="fas fa-user-circle"></i> Profile
+                </h3>
+                <span class="close-btn" data-modal-id="profileModal">&times;</span>
+            </div>
+            <div class="profile-body">
+                <div class="profile-icon-large-container">
+                    <img src="King.jpg" class="profile-image-large" onerror="this.src='https://ui-avatars.com/api/?name=User&background=0D8ABC&color=fff'">
+                </div>
+                <h3>Welcome to King Store!</h3>
+                <p style="color:#666; margin-bottom:20px;">Created by David</p>
+                
+                <div class="user-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalDownloadsStat">0</div>
+                        <div class="stat-label">Downloads</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="featuredAppsStat">0</div>
+                        <div class="stat-label">Featured</div>
+                    </div>
+                </div>
+
+                <div class="action-grid">
+                    <a href="#" class="action-btn" id="viewFavorites">
+                        <i class="fas fa-heart"></i>
+                        <span>Favorites</span>
+                    </a>
+                    <a href="#" class="action-btn" id="openSettingsBtn">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a href="#" class="action-btn">
+                        <i class="fas fa-headset"></i>
+                        <span>Support</span>
+                    </a>
+                    <a href="#" class="action-btn">
+                        <i class="fas fa-history"></i>
+                        <span>History</span>
+                    </a>
+                </div>
+
+                <button class="install-btn" style="width:100%; background:#ff5252; margin-top: 20px;" id="authButton">
+                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="flex:1">
+                    <i class="fas fa-cog"></i> Settings
+                </h3>
+                <span class="close-btn" data-modal-id="settingsModal">&times;</span>
+            </div>
+            <div style="padding: 10px 0;">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-title">Auto-update apps</div>
+                        <div class="setting-description">Wi-Fi only</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="autoUpdateToggle" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-title">Dark Mode</div>
+                        <div class="setting-description">Switch to dark theme</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-title">Data Saver</div>
+                        <div class="setting-description">Reduce data usage</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="dataSaverToggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-title">Notifications</div>
+                        <div class="setting-description">App updates & news</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="notificationsToggle" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                
+                <div style="padding: 20px;">
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; text-align: center;">
+                        <div style="font-size: 32px; font-weight: bold; color: var(--primary); margin-bottom: 5px;">
+                            2.0.0
+                        </div>
+                        <div style="color: #666; font-size: 14px; margin-bottom: 10px;">
+                            APK Store Premium
+                        </div>
+                        <div style="font-size: 12px; color: #888;">
+                            © 2024 King Store. All rights reserved.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
+
+        // CONFIG (Keeping your original config)
+        const firebaseConfig = {
+          apiKey: "AIzaSyDEOY44CcIrvvqZnCwrSe9GHiwPCigIpzc",
+          authDomain: "play-store-e84dc.firebaseapp.com",
+          databaseURL: "https://play-store-e84dc-default-rtdb.firebaseio.com",
+          projectId: "play-store-e84dc",
+          storageBucket: "play-store-e84dc.firebasestorage.app",
+          messagingSenderId: "674515432381",
+          appId: "1:674515432381:web:42ec7a05351d6e28a298d4",
+          measurementId: "G-1GMDFHK3F8" 
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const appsRef = ref(db, 'apps');
+
+        let allApps = [];
+        let currentFilter = 'All';
+        let currentSort = 'rating';
+        let currentPriceFilter = 'all';
+        let advancedFilters = {
+            minRating: 0,
+            minDownloads: 0
+        };
+
+        // DOM Elements
+        const loadingScreen = document.getElementById('loadingScreen');
+        const mainAppGrid = document.getElementById('mainAppGrid');
+        const topChartsGrid = document.getElementById('topChartsGrid');
+        const searchInput = document.getElementById('searchInput');
+        const categoryTabs = document.getElementById('categoryTabs');
+        const sortSelector = document.getElementById('sortSelector');
+        const priceFilter = document.getElementById('priceFilter');
+        const appCount = document.getElementById('appCount');
+        const appCountBadge = document.getElementById('appCountBadge');
+        
+        // Statistics elements
+        const totalDownloadsStat = document.getElementById('totalDownloadsStat');
+        const featuredAppsStat = document.getElementById('featuredAppsStat');
+        
+        // Settings toggles
+        const autoUpdateToggle = document.getElementById('autoUpdateToggle');
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const dataSaverToggle = document.getElementById('dataSaverToggle');
+        const notificationsToggle = document.getElementById('notificationsToggle');
+        
+        // Helper: SVG Placeholder
+        const PLACEHOLDER_SVG = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="#f0f2f5"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="20" fill="#00C853" font-family="sans-serif">APK</text></svg>';
+        
+        window.handleImageError = function(img) {
+            img.onerror = null; 
+            img.src = PLACEHOLDER_SVG;
+            img.style.padding = '10px';
+        };
+
+        function getStars(rating) {
+            let stars = '';
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 >= 0.5;
+            
+            for (let i = 0; i < 5; i++) {
+                if (i < fullStars) {
+                    stars += '<i class="fas fa-star"></i>';
+                } else if (i === fullStars && hasHalfStar) {
+                    stars += '<i class="fas fa-star-half-alt"></i>';
+                } else {
+                    stars += '<i class="far fa-star" style="color:#ddd"></i>';
+                }
+            }
+            return stars;
+        }
+
+        function formatNumber(num) {
+            if (!num) return '0';
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + 'M';
+            } else if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            }
+            return num.toString();
+        }
+
+        // =======================
+        // ANIMATION HELPERS
+        // =======================
+        function openModalById(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.style.display = 'flex';
+                void el.offsetWidth; // Trigger reflow
+                el.classList.add('show');
+                document.body.classList.add('modal-open');
+            }
+        }
+
+        function closeModalById(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.remove('show');
+                setTimeout(() => {
+                    el.style.display = 'none';
+                    document.body.classList.remove('modal-open');
+                }, 300);
+            }
+        }
+
+        // Close modal when clicking outside (only for desktop)
+        function setupModalCloseOnOutsideClick() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal && window.innerWidth >= 768) {
+                        closeModalById(modal.id);
+                    }
+                });
+            });
+        }
+
+        window.openAppDetails = function(app) {
+            const modal = document.getElementById('appModal');
+            const priceDisplay = app.priceType === 'paid' && app.price ? 
+                `<div class="detail-meta-item">
+                    <div class="detail-meta-label">Price</div>
+                    <div class="detail-meta-value" style="color: var(--paid-color);">$${parseFloat(app.price).toFixed(2)}</div>
+                </div>` : 
+                `<div class="detail-meta-item">
+                    <div class="detail-meta-label">Price</div>
+                    <div class="detail-meta-value" style="color: var(--free-color);">Free</div>
+                </div>`;
+            
+            const tagsHtml = app.tags && Array.isArray(app.tags) && app.tags.length > 0 ? 
+                `<div class="app-detail-tags">
+                    ${app.tags.map(tag => `<span class="detail-tag">${tag}</span>`).join('')}
+                </div>` : '';
+            
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 style="flex: 1; margin: 0;">App Details</h3>
+                        <span class="close-btn" data-modal-id="appModal">&times;</span>
+                    </div>
+                    <div class="app-detail-header">
+                        <div class="detail-app-icon">
+                            <img src="${app.imageSrc}" onerror="handleImageError(this)">
+                        </div>
+                        <div class="app-detail-info">
+                            <h2 class="detail-app-name">${app.name}</h2>
+                            <p class="detail-app-developer">${app.developer}</p>
+                            
+                            <div class="detail-app-rating">
+                                ${getStars(app.rating)}
+                                <span>${app.rating} (${app.downloads ? formatNumber(app.downloads) : '0'} downloads)</span>
+                            </div>
+                            
+                            <div class="detail-meta">
+                                <div class="detail-meta-item">
+                                    <div class="detail-meta-label">Version</div>
+                                    <div class="detail-meta-value">${app.version || '1.0.0'}</div>
+                                </div>
+                                ${priceDisplay}
+                                <div class="detail-meta-item">
+                                    <div class="detail-meta-label">Size</div>
+                                    <div class="detail-meta-value">${app.size ? app.size + ' MB' : 'N/A'}</div>
+                                </div>
+                                <div class="detail-meta-item">
+                                    <div class="detail-meta-label">Category</div>
+                                    <div class="detail-meta-value">${app.category || 'N/A'}</div>
+                                </div>
+                            </div>
+                            
+                            <button class="install-btn ${app.priceType === 'paid' ? 'paid' : ''}" onclick="window.open('${app.downloadLink}', '_blank')">
+                                <i class="fas fa-download"></i> 
+                                ${app.priceType === 'paid' && app.price ? `Purchase ($${parseFloat(app.price).toFixed(2)})` : 'Install'}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="app-description">
+                        <h3 style="margin-bottom:10px;">About</h3>
+                        <p>${app.description || "No description available for this application."}</p>
+                    </div>
+                    ${tagsHtml}
+                </div>
+            `;
+            
+            modal.querySelector('.close-btn').onclick = () => closeModalById('appModal');
+            openModalById('appModal');
+        }
+
+        function renderApps(apps, container) {
+            container.innerHTML = '';
+            
+            if (apps.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-search"></i>
+                        <h3>No apps found</h3>
+                        <p>Try changing your search or filter criteria</p>
+                    </div>
+                `;
+                return;
+            }
+
+            apps.forEach((app, index) => {
+                const card = document.createElement('div');
+                card.className = `app-card ${app.featured ? 'featured' : ''}`;
+                card.style.animation = 'none';
+                card.offsetHeight; // trigger reflow
+                card.style.animation = `cardEntrance 0.5s ease forwards ${index * 0.05}s`;
+
+                const priceHtml = app.priceType === 'paid' && app.price ? 
+                    `<div class="app-price price-paid">$${parseFloat(app.price).toFixed(2)}</div>` :
+                    `<div class="app-price price-free">Free</div>`;
+                
+                const tagsHtml = app.tags && Array.isArray(app.tags) && app.tags.slice(0, 2).map(tag => 
+                    `<span class="app-tag">${tag}</span>`
+                ).join('') || '';
+                
+                card.innerHTML = `
+                    ${app.status === 'inactive' ? '<div class="app-status status-inactive">INACTIVE</div>' : ''}
+                    <div class="app-icon">
+                        <img src="${app.imageSrc}" onerror="handleImageError(this)">
+                    </div>
+                    <div class="app-info">
+                        <h3 class="app-name">${app.name}</h3>
+                        <p class="app-developer">${app.developer}</p>
+                        
+                        <div class="app-meta">
+                            <div class="app-rating">
+                                ${getStars(app.rating)}
+                            </div>
+                            ${app.size ? `<div class="app-size">${app.size} MB</div>` : ''}
+                        </div>
+                        
+                        <div class="app-downloads">
+                            <i class="fas fa-download"></i> ${app.downloads ? formatNumber(app.downloads) : '0'}
+                        </div>
+                        
+                        ${tagsHtml ? `<div class="app-tags">${tagsHtml}</div>` : ''}
+                        
+                        ${priceHtml}
+                    </div>
+                `;
+                card.onclick = () => window.openAppDetails(app);
+                container.appendChild(card);
+            });
+        }
+
+        function filterAndSortApps() {
+            let filtered = [...allApps];
+            
+            // Apply category filter
+            if (currentFilter === 'Featured') {
+                filtered = filtered.filter(app => app.featured);
+            } else if (currentFilter !== 'All') {
+                filtered = filtered.filter(app => app.category && app.category.toLowerCase() === currentFilter.toLowerCase());
+            }
+            
+            // Apply price filter
+            if (currentPriceFilter === 'free') {
+                filtered = filtered.filter(app => app.priceType !== 'paid');
+            } else if (currentPriceFilter === 'paid') {
+                filtered = filtered.filter(app => app.priceType === 'paid' && app.price);
+            }
+            
+            // Apply status filter - always show active only for mobile
+            filtered = filtered.filter(app => app.status !== 'inactive');
+            
+            // Apply advanced filters
+            if (advancedFilters.minRating > 0) {
+                filtered = filtered.filter(app => app.rating >= advancedFilters.minRating);
+            }
+            
+            if (advancedFilters.minDownloads > 0) {
+                filtered = filtered.filter(app => (app.downloads || 0) >= advancedFilters.minDownloads);
+            }
+            
+            // Apply search
+            const term = searchInput.value.toLowerCase();
+            if (term) {
+                filtered = filtered.filter(app => 
+                    app.name.toLowerCase().includes(term) || 
+                    app.developer.toLowerCase().includes(term) ||
+                    (app.description && app.description.toLowerCase().includes(term)) ||
+                    (app.tags && Array.isArray(app.tags) && app.tags.some(tag => tag.toLowerCase().includes(term)))
+                );
+            }
+            
+            // Sort
+            filtered.sort((a, b) => {
+                switch(currentSort) {
+                    case 'rating':
+                        return b.rating - a.rating;
+                    case 'name':
+                        return a.name.localeCompare(b.name);
+                    case 'downloads':
+                        return (b.downloads || 0) - (a.downloads || 0);
+                    case 'newest':
+                        return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+                    default:
+                        return b.rating - a.rating;
+                }
+            });
+            
+            // Update app count
+            appCount.textContent = filtered.length;
+            
+            // Render main grid
+            renderApps(filtered, mainAppGrid);
+            
+            // Render top charts (always based on rating)
+            if (!term) {
+                const topApps = [...allApps]
+                    .filter(app => app.status !== 'inactive')
+                    .sort((a, b) => b.rating - a.rating)
+                    .slice(0, 6);
+                renderApps(topApps, topChartsGrid);
+            } else {
+                topChartsGrid.style.display = 'none';
+                document.querySelectorAll('.filter-controls')[1].style.display = 'none';
+            }
+        }
+
+        function updateStatistics() {
+            const totalDownloads = allApps.reduce((sum, app) => sum + (parseInt(app.downloads) || 0), 0);
+            const featuredCount = allApps.filter(app => app.featured && app.status !== 'inactive').length;
+            
+            totalDownloadsStat.textContent = formatNumber(totalDownloads);
+            featuredAppsStat.textContent = featuredCount;
+        }
+
+        function initializeSettings() {
+            // Load saved settings from localStorage
+            const savedSettings = JSON.parse(localStorage.getItem('apkStoreSettings')) || {
+                autoUpdate: true,
+                darkMode: false,
+                dataSaver: false,
+                notifications: true
+            };
+            
+            // Apply saved settings to toggles
+            autoUpdateToggle.checked = savedSettings.autoUpdate;
+            darkModeToggle.checked = savedSettings.darkMode;
+            dataSaverToggle.checked = savedSettings.dataSaver;
+            notificationsToggle.checked = savedSettings.notifications;
+            
+            // Apply dark mode if enabled
+            if (savedSettings.darkMode) {
+                document.documentElement.style.setProperty('--bg-color', '#1a1a1a');
+                document.documentElement.style.setProperty('--text-main', '#ffffff');
+                document.documentElement.style.setProperty('--text-sub', '#cccccc');
+                document.documentElement.style.setProperty('--glass-bg', 'rgba(30, 30, 30, 0.85)');
+            }
+            
+            // Add event listeners to save settings
+            autoUpdateToggle.addEventListener('change', saveSettings);
+            darkModeToggle.addEventListener('change', saveSettings);
+            dataSaverToggle.addEventListener('change', saveSettings);
+            notificationsToggle.addEventListener('change', saveSettings);
+        }
+
+        function saveSettings() {
+            const settings = {
+                autoUpdate: autoUpdateToggle.checked,
+                darkMode: darkModeToggle.checked,
+                dataSaver: dataSaverToggle.checked,
+                notifications: notificationsToggle.checked
+            };
+            
+            localStorage.setItem('apkStoreSettings', JSON.stringify(settings));
+            
+            // Apply dark mode immediately
+            if (settings.darkMode) {
+                document.documentElement.style.setProperty('--bg-color', '#1a1a1a');
+                document.documentElement.style.setProperty('--text-main', '#ffffff');
+                document.documentElement.style.setProperty('--text-sub', '#cccccc');
+                document.documentElement.style.setProperty('--glass-bg', 'rgba(30, 30, 30, 0.85)');
+            } else {
+                document.documentElement.style.setProperty('--bg-color', '#F0F2F5');
+                document.documentElement.style.setProperty('--text-main', '#1a1a1a');
+                document.documentElement.style.setProperty('--text-sub', '#5f6368');
+                document.documentElement.style.setProperty('--glass-bg', 'rgba(255, 255, 255, 0.85)');
+            }
+        }
+
+        // INIT
+        onValue(appsRef, (snap) => {
+            const data = snap.val();
+            allApps = [];
+            for (let id in data) {
+                const app = { id, ...data[id] };
+                app.rating = parseFloat(app.rating) || 0;
+                app.downloads = parseInt(app.downloads) || 0;
+                app.price = parseFloat(app.price) || 0;
+                allApps.push(app);
+            }
+            
+            updateStatistics();
+            filterAndSortApps();
+            loadingScreen.classList.add('hidden');
+        });
+
+        // Initialize settings
+        initializeSettings();
+        setupModalCloseOnOutsideClick();
+
+        // Event Listeners
+        categoryTabs.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryTabs.querySelector('.active').classList.remove('active');
+                btn.classList.add('active');
+                currentFilter = btn.dataset.category;
+                document.getElementById('currentCategoryTitle').innerHTML = 
+                    `<i class="fas fa-th-large"></i> ${currentFilter === 'All' ? 'All Apps' : currentFilter}`;
+                filterAndSortApps();
+            });
+        });
+
+        searchInput.addEventListener('input', filterAndSortApps);
+        
+        sortSelector.addEventListener('change', (e) => {
+            currentSort = e.target.value;
+            filterAndSortApps();
+        });
+        
+        priceFilter.addEventListener('change', (e) => {
+            currentPriceFilter = e.target.value;
+            filterAndSortApps();
+        });
+
+        // Filter Modal
+        document.getElementById('openFilterBtn').addEventListener('click', () => openModalById('filterModal'));
+        
+        document.querySelectorAll('.filter-option').forEach(option => {
+            option.addEventListener('click', function() {
+                this.parentElement.querySelectorAll('.filter-option').forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        document.getElementById('applyFiltersBtn').addEventListener('click', () => {
+            const minRating = parseFloat(document.querySelector('.filter-option[data-rating].active').dataset.rating);
+            const minDownloads = parseInt(document.querySelector('.filter-option[data-downloads].active').dataset.downloads);
+            const sort = document.querySelector('.filter-option[data-sort].active').dataset.sort;
+            
+            advancedFilters.minRating = minRating;
+            advancedFilters.minDownloads = minDownloads;
+            currentSort = sort;
+            sortSelector.value = sort;
+            
+            closeModalById('filterModal');
+            filterAndSortApps();
+        });
+        
+        document.getElementById('resetFiltersBtn').addEventListener('click', () => {
+            advancedFilters = {
+                minRating: 0,
+                minDownloads: 0
+            };
+            currentSort = 'rating';
+            currentPriceFilter = 'all';
+            
+            // Reset UI elements
+            sortSelector.value = 'rating';
+            priceFilter.value = 'all';
+            
+            // Reset filter options
+            document.querySelectorAll('.filter-option').forEach(option => {
+                option.classList.remove('active');
+                if (option.dataset.rating === '0' || option.dataset.downloads === '0' || option.dataset.sort === 'rating') {
+                    option.classList.add('active');
+                }
+            });
+            
+            closeModalById('filterModal');
+            filterAndSortApps();
+        });
+
+        // Modal Management
+        document.getElementById('openProfileBtn').addEventListener('click', () => openModalById('profileModal'));
+        document.getElementById('openSettingsBtn').addEventListener('click', () => {
+            closeModalById('profileModal');
+            openModalById('settingsModal');
+        });
+        
+        document.getElementById('favoritesBtn').addEventListener('click', () => {
+            currentFilter = 'Featured';
+            categoryTabs.querySelector('.active').classList.remove('active');
+            categoryTabs.querySelector('[data-category="Featured"]').classList.add('active');
+            document.getElementById('currentCategoryTitle').innerHTML = 
+                `<i class="fas fa-heart"></i> Favorites`;
+            filterAndSortApps();
+        });
+
+        document.querySelectorAll('.close-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => closeModalById(e.target.dataset.modalId));
+        });
+
+        // Add keyboard support for modals
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const openModals = document.querySelectorAll('.modal.show');
+                if (openModals.length > 0) {
+                    closeModalById(openModals[openModals.length - 1].id);
+                }
+            }
+        });
+
+        // Add touch gesture support for mobile
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.changedTouches[0].screenY;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndY = e.changedTouches[0].screenY;
+            const modal = document.querySelector('.modal.show');
+            
+            // Swipe down to close modal on mobile
+            if (modal && touchEndY - touchStartY > 100 && window.innerWidth < 768) {
+                closeModalById(modal.id);
+            }
+        });
+    </script>
+</body>
+</html>
