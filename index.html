@@ -9,25 +9,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ========================================================= */
-        /* VARIABLES & RESET */
+        /* VARIABLES & RESET - IMPROVED LIGHT THEME */
         /* ========================================================= */
         :root {
             --primary: #00C853; /* Vibrant Green */
+            --primary-light: #66ffa6;
             --primary-dark: #009624;
             --accent: #2979FF;
-            --bg-color: #F0F2F5;
+            --accent-light: #75a7ff;
+            --bg-color: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --card-bg: #ffffff;
             --text-main: #1a1a1a;
-            --text-sub: #5f6368;
-            --glass-bg: rgba(255, 255, 255, 0.85);
+            --text-secondary: #5f6368;
+            --text-tertiary: #80868b;
+            --border-color: #e0e0e0;
+            --glass-bg: rgba(255, 255, 255, 0.95);
             --glass-border: rgba(255, 255, 255, 0.6);
-            --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.1);
-            --shadow-hover: 0 8px 24px rgba(0, 200, 83, 0.15);
+            --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 24px rgba(0, 200, 83, 0.12);
+            --radius-sm: 8px;
             --radius-md: 12px;
             --radius-lg: 16px;
+            --radius-xl: 20px;
             --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
             --featured-color: #ff6b6b;
             --paid-color: #ff5252;
             --free-color: #00C853;
+            --warning-color: #ff9800;
+            --success-color: #4caf50;
+            --info-color: #2196f3;
         }
 
         * {
@@ -48,8 +60,8 @@
             overflow-x: hidden;
             /* Subtle Animated Background Mesh */
             background-image: 
-                radial-gradient(at 0% 0%, rgba(0, 200, 83, 0.03) 0px, transparent 50%),
-                radial-gradient(at 100% 0%, rgba(41, 121, 255, 0.03) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(0, 200, 83, 0.02) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(41, 121, 255, 0.02) 0px, transparent 50%);
             background-attachment: fixed;
             padding-bottom: env(safe-area-inset-bottom);
         }
@@ -63,7 +75,7 @@
             background: transparent;
         }
         ::-webkit-scrollbar-thumb {
-            background: #ccc;
+            background: #d0d0d0;
             border-radius: 3px;
         }
         ::-webkit-scrollbar-thumb:hover {
@@ -118,16 +130,16 @@
         /* GLASS HEADER - MOBILE FRIENDLY */
         /* ========================================================= */
         header {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid var(--border-color);
             padding: 12px 15px;
             position: sticky;
             top: 0;
             z-index: 100;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
         }
 
         .header-container {
@@ -177,8 +189,8 @@
             width: 100%;
             padding: 10px 15px 10px 40px;
             border-radius: 25px;
-            border: 1.5px solid transparent;
-            background-color: #f1f3f4;
+            border: 1.5px solid #e8eaed;
+            background-color: #f8f9fa;
             font-size: 14px;
             transition: all 0.3s ease;
             color: var(--text-main);
@@ -187,7 +199,7 @@
         .search-box:focus {
             background-color: #fff;
             border-color: var(--primary);
-            box-shadow: 0 4px 15px rgba(0, 200, 83, 0.15);
+            box-shadow: 0 4px 15px rgba(0, 200, 83, 0.1);
             transform: scale(1.02);
         }
 
@@ -215,8 +227,8 @@
 
         .filter-btn {
             background: white;
-            border: 1px solid #eee;
-            color: var(--text-sub);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
             width: 36px;
             height: 36px;
             border-radius: 50%;
@@ -232,7 +244,7 @@
         .filter-btn:hover, .filter-btn:active {
             background-color: var(--accent);
             color: white;
-            box-shadow: 0 4px 12px rgba(41, 121, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(41, 121, 255, 0.2);
             transform: rotate(15deg);
         }
 
@@ -245,8 +257,8 @@
 
         .user-actions button {
             background: white;
-            border: 1px solid #eee;
-            color: var(--text-sub);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
             width: 36px;
             height: 36px;
             border-radius: 50%;
@@ -261,7 +273,7 @@
         .user-actions button:hover, .user-actions button:active {
             background-color: var(--primary);
             color: white;
-            box-shadow: 0 4px 12px rgba(0, 200, 83, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 200, 83, 0.2);
             transform: rotate(15deg);
         }
 
@@ -288,14 +300,14 @@
 
         .category-tabs button {
             background: white;
-            border: none;
+            border: 1px solid var(--border-color);
             padding: 10px 18px;
             border-radius: 25px;
             cursor: pointer;
             font-size: 13px;
             font-weight: 500;
-            color: var(--text-sub);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            color: var(--text-secondary);
+            box-shadow: var(--shadow-soft);
             transition: all 0.3s var(--transition-bounce);
             white-space: nowrap;
             display: flex;
@@ -316,7 +328,8 @@
         .category-tabs button.active {
             background: var(--primary);
             color: white;
-            box-shadow: 0 4px 12px rgba(0, 200, 83, 0.3);
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 200, 83, 0.2);
             transform: scale(1.05);
         }
 
@@ -324,6 +337,7 @@
             background: linear-gradient(135deg, var(--featured-color), #ff8a8a);
             color: white;
             position: relative;
+            border: none;
         }
 
         .category-tabs button.featured::before {
@@ -341,7 +355,7 @@
             flex-wrap: wrap;
             gap: 10px;
             padding: 10px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .section-title {
@@ -382,7 +396,7 @@
         select {
             padding: 8px 15px;
             border-radius: 20px;
-            border: 1.5px solid #ddd;
+            border: 1.5px solid var(--border-color);
             background: white;
             cursor: pointer;
             outline: none;
@@ -391,6 +405,7 @@
             transition: all 0.3s ease;
             min-width: 0;
             flex: 1;
+            color: var(--text-main);
         }
 
         select:focus {
@@ -399,7 +414,7 @@
         }
 
         .stats-badge {
-            background: rgba(0, 200, 83, 0.1);
+            background: rgba(0, 200, 83, 0.08);
             color: var(--primary);
             padding: 5px 10px;
             border-radius: 15px;
@@ -409,6 +424,7 @@
             align-items: center;
             gap: 4px;
             white-space: nowrap;
+            border: 1px solid rgba(0, 200, 83, 0.2);
         }
 
         /* ========================================================= */
@@ -422,13 +438,13 @@
         }
 
         .app-card {
-            background: white;
+            background: var(--card-bg);
             border-radius: var(--radius-md);
             overflow: hidden;
             box-shadow: var(--shadow-soft);
             transition: all 0.3s var(--transition-bounce);
             cursor: pointer;
-            border: 1px solid transparent;
+            border: 1px solid var(--border-color);
             opacity: 0; /* For animation */
             animation: cardEntrance 0.5s ease forwards;
             position: relative;
@@ -437,7 +453,7 @@
         /* Featured App Styling */
         .app-card.featured {
             border: 1.5px solid var(--featured-color);
-            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.15);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.1);
         }
 
         .app-card.featured::before {
@@ -481,13 +497,13 @@
 
         .app-card:active {
             transform: scale(0.98);
-            box-shadow: 0 2px 10px rgba(0, 200, 83, 0.2);
+            box-shadow: 0 2px 10px rgba(0, 200, 83, 0.15);
             border-color: rgba(0, 200, 83, 0.3);
         }
 
         .app-icon {
             padding: 12px;
-            background: radial-gradient(circle at center, #fff 0%, #f9f9f9 100%);
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -498,8 +514,8 @@
         .app-icon img {
             width: 70px;
             height: 70px;
-            border-radius: 16px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            border-radius: var(--radius-md);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
             object-fit: cover;
             transition: transform 0.3s ease;
         }
@@ -521,14 +537,16 @@
         }
 
         .status-active {
-            background-color: #d4edda;
-            color: #155724;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
         }
 
         .status-inactive {
-            background-color: #f8d7da;
-            color: #721c24;
+            background-color: #ffebee;
+            color: #c62828;
             opacity: 0.7;
+            border: 1px solid #ffcdd2;
         }
 
         .app-info {
@@ -543,11 +561,12 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            color: var(--text-main);
         }
 
         .app-developer {
             font-size: 11px;
-            color: #80868b;
+            color: var(--text-tertiary);
             margin-bottom: 6px;
             white-space: nowrap;
             overflow: hidden;
@@ -574,10 +593,11 @@
 
         .app-size {
             font-size: 10px;
-            color: #80868b;
+            color: var(--text-tertiary);
             background: #f5f5f5;
             padding: 2px 6px;
             border-radius: 8px;
+            border: 1px solid #eee;
         }
 
         .app-price {
@@ -598,7 +618,7 @@
 
         .app-downloads {
             font-size: 10px;
-            color: #80868b;
+            color: var(--text-tertiary);
             display: flex;
             align-items: center;
             gap: 2px;
@@ -614,10 +634,11 @@
 
         .app-tag {
             font-size: 9px;
-            background: rgba(0, 200, 83, 0.1);
+            background: rgba(0, 200, 83, 0.08);
             color: var(--primary);
             padding: 2px 5px;
             border-radius: 8px;
+            border: 1px solid rgba(0, 200, 83, 0.2);
         }
 
         /* ========================================================= */
@@ -630,7 +651,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(5px);
             z-index: 1000;
             justify-content: center; 
@@ -649,7 +670,7 @@
             border-radius: 20px 20px 0 0;
             width: 100%;
             overflow: hidden;
-            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
             transform: translateY(100%);
             opacity: 0;
             transition: all 0.4s cubic-bezier(0.32, 0.72, 0, 1);
@@ -681,7 +702,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .close-btn {
@@ -696,6 +717,7 @@
             justify-content: center;
             transition: all 0.2s;
             flex-shrink: 0;
+            color: var(--text-secondary);
         }
 
         .close-btn:active {
@@ -717,8 +739,8 @@
         .detail-app-icon {
             width: 100px;
             height: 100px;
-            border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
             overflow: hidden;
             flex-shrink: 0;
         }
@@ -738,11 +760,12 @@
             font-size: 22px;
             font-weight: 700;
             margin-bottom: 5px;
+            color: var(--text-main);
         }
 
         .detail-app-developer {
             font-size: 14px;
-            color: var(--text-sub);
+            color: var(--text-secondary);
             margin-bottom: 15px;
         }
 
@@ -761,7 +784,7 @@
 
         .detail-meta-label {
             font-size: 11px;
-            color: #80868b;
+            color: var(--text-tertiary);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -769,6 +792,7 @@
         .detail-meta-value {
             font-weight: 600;
             font-size: 14px;
+            color: var(--text-main);
         }
 
         .detail-app-rating {
@@ -789,7 +813,7 @@
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 200, 83, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 200, 83, 0.2);
             transition: all 0.3s var(--transition-bounce);
             display: inline-flex;
             align-items: center;
@@ -801,43 +825,44 @@
         .install-btn:active {
             background: var(--primary-dark);
             transform: scale(0.98);
-            box-shadow: 0 2px 10px rgba(0, 200, 83, 0.3);
+            box-shadow: 0 2px 10px rgba(0, 200, 83, 0.15);
         }
 
         .install-btn.paid {
             background: var(--paid-color);
-            box-shadow: 0 4px 15px rgba(255, 82, 82, 0.4);
+            box-shadow: 0 4px 15px rgba(255, 82, 82, 0.2);
         }
 
         .install-btn.paid:active {
             background: #ff1744;
-            box-shadow: 0 2px 10px rgba(255, 82, 82, 0.3);
+            box-shadow: 0 2px 10px rgba(255, 82, 82, 0.15);
         }
 
         .app-description {
             padding: 20px;
-            background: #f8f9fa;
-            border-top: 1px solid #eee;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
             line-height: 1.6;
-            color: #444;
+            color: var(--text-secondary);
             font-size: 14px;
         }
 
         .app-detail-tags {
             padding: 15px 20px;
-            border-top: 1px solid #eee;
+            border-top: 1px solid var(--border-color);
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
         }
 
         .detail-tag {
-            background: rgba(0, 200, 83, 0.1);
+            background: rgba(0, 200, 83, 0.08);
             color: var(--primary);
             padding: 5px 10px;
             border-radius: 12px;
             font-size: 11px;
             font-weight: 500;
+            border: 1px solid rgba(0, 200, 83, 0.2);
         }
 
         /* ========================================================= */
@@ -870,7 +895,7 @@
         .filter-option {
             padding: 8px 14px;
             border-radius: 18px;
-            border: 1.5px solid #ddd;
+            border: 1.5px solid var(--border-color);
             background: white;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -878,6 +903,7 @@
             flex: 1;
             min-width: 0;
             text-align: center;
+            color: var(--text-main);
         }
 
         .filter-option:active {
@@ -889,21 +915,6 @@
             background: var(--primary);
             color: white;
             border-color: var(--primary);
-        }
-
-        .price-filter {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .price-filter input {
-            flex: 1;
-            padding: 8px 12px;
-            border-radius: 18px;
-            border: 1.5px solid #ddd;
-            outline: none;
-            font-size: 14px;
         }
 
         /* ========================================================= */
@@ -941,7 +952,7 @@
 
         .action-btn {
             background: white;
-            border: 1.5px solid #eee;
+            border: 1.5px solid var(--border-color);
             padding: 12px;
             border-radius: 14px;
             display: flex;
@@ -961,6 +972,7 @@
 
         .action-btn span {
             font-size: 12px;
+            color: var(--text-secondary);
         }
 
         .action-btn:active {
@@ -978,10 +990,11 @@
         }
 
         .stat-item {
-            background: #f8f9fa;
+            background: var(--bg-secondary);
             padding: 12px;
             border-radius: 12px;
             text-align: center;
+            border: 1px solid var(--border-color);
         }
 
         .stat-value {
@@ -993,7 +1006,7 @@
 
         .stat-label {
             font-size: 11px;
-            color: var(--text-sub);
+            color: var(--text-secondary);
         }
 
         /* ========================================================= */
@@ -1019,7 +1032,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #ccc;
+            background-color: #e0e0e0;
             transition: .4s;
             border-radius: 34px;
         }
@@ -1049,7 +1062,7 @@
             justify-content: space-between;
             padding: 15px 20px;
             align-items: center;
-            border-bottom: 1px solid #f5f5f5;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .setting-info {
@@ -1060,11 +1073,12 @@
             font-weight: 600;
             font-size: 15px;
             margin-bottom: 3px;
+            color: var(--text-main);
         }
 
         .setting-description {
             font-size: 12px;
-            color: #888;
+            color: var(--text-tertiary);
         }
 
         /* Empty State */
@@ -1076,21 +1090,184 @@
 
         .empty-state i {
             font-size: 48px;
-            color: #ddd;
+            color: #e0e0e0;
             margin-bottom: 15px;
         }
 
         .empty-state h3 {
             font-size: 18px;
-            color: #888;
+            color: var(--text-secondary);
             margin-bottom: 8px;
         }
 
         .empty-state p {
-            color: #aaa;
+            color: var(--text-tertiary);
             max-width: 300px;
             margin: 0 auto;
             font-size: 13px;
+        }
+
+        /* ========================================================= */
+        /* TOAST NOTIFICATIONS */
+        /* ========================================================= */
+        .toast-message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            z-index: 9999;
+            opacity: 0;
+            transition: all 0.3s var(--transition-bounce);
+            max-width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .toast-message.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .toast-success { 
+            background: var(--success-color); 
+        }
+
+        .toast-error { 
+            background: var(--paid-color); 
+        }
+
+        .toast-info { 
+            background: var(--info-color); 
+        }
+
+        .toast-warning {
+            background: var(--warning-color);
+        }
+
+        .toast-message i { 
+            font-size: 18px; 
+        }
+
+        /* Download Progress Toast */
+        .download-progress {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: white;
+            color: var(--text-main);
+            padding: 15px;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            z-index: 9999;
+            opacity: 0;
+            transition: all 0.3s var(--transition-bounce);
+            max-width: 90%;
+            width: 300px;
+            border: 1px solid var(--border-color);
+        }
+
+        .download-progress.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .download-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .download-title {
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .close-download {
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            font-size: 16px;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-download:active {
+            background: #f1f3f4;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: #f0f0f0;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .download-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        /* ========================================================= */
+        /* BACK NAVIGATION HISTORY */
+        /* ========================================================= */
+        .history-back-btn {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 200, 83, 0.3);
+            cursor: pointer;
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s var(--transition-bounce);
+        }
+
+        .history-back-btn.show {
+            display: flex;
+        }
+
+        .history-back-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 10px rgba(0, 200, 83, 0.2);
         }
 
         /* ========================================================= */
@@ -1155,6 +1332,10 @@
             select {
                 min-width: 140px;
                 flex: none;
+            }
+
+            .download-progress {
+                width: 400px;
             }
         }
 
@@ -1286,6 +1467,11 @@
         </div>
         <div class="app-grid" id="topChartsGrid"></div>
     </div>
+
+    <!-- Back Navigation Button -->
+    <button class="history-back-btn" id="historyBackBtn" title="Go back">
+        <i class="fas fa-arrow-left"></i>
+    </button>
 
     <!-- App Details Modal -->
     <div class="modal" id="appModal"></div>
@@ -1461,6 +1647,8 @@
         </div>
     </div>
 
+    <!-- Download Progress Modal (Will be created dynamically) -->
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
@@ -1481,6 +1669,7 @@
         const db = getDatabase(app);
         const appsRef = ref(db, 'apps');
 
+        // State Management
         let allApps = [];
         let currentFilter = 'All';
         let currentSort = 'rating';
@@ -1489,6 +1678,14 @@
             minRating: 0,
             minDownloads: 0
         };
+
+        // Navigation History Stack
+        let navigationHistory = [];
+        let currentHistoryIndex = -1;
+        const MAX_HISTORY = 10;
+
+        // Active Downloads Tracking
+        let activeDownloads = new Map();
 
         // DOM Elements
         const loadingScreen = document.getElementById('loadingScreen');
@@ -1500,6 +1697,7 @@
         const priceFilter = document.getElementById('priceFilter');
         const appCount = document.getElementById('appCount');
         const appCountBadge = document.getElementById('appCountBadge');
+        const historyBackBtn = document.getElementById('historyBackBtn');
         
         // Statistics elements
         const totalDownloadsStat = document.getElementById('totalDownloadsStat');
@@ -1520,6 +1718,300 @@
             img.style.padding = '10px';
         };
 
+        // =======================
+        // NAVIGATION HISTORY SYSTEM
+        // =======================
+        function addToHistory(state) {
+            // Remove future states if we're going back and adding new state
+            if (currentHistoryIndex < navigationHistory.length - 1) {
+                navigationHistory = navigationHistory.slice(0, currentHistoryIndex + 1);
+            }
+            
+            // Add new state
+            navigationHistory.push({
+                ...state,
+                timestamp: Date.now()
+            });
+            
+            // Keep history size limited
+            if (navigationHistory.length > MAX_HISTORY) {
+                navigationHistory.shift();
+            }
+            
+            currentHistoryIndex = navigationHistory.length - 1;
+            updateBackButton();
+        }
+
+        function getCurrentState() {
+            return {
+                filter: currentFilter,
+                sort: currentSort,
+                priceFilter: currentPriceFilter,
+                advancedFilters: {...advancedFilters},
+                search: searchInput.value,
+                modal: document.querySelector('.modal.show')?.id || null
+            };
+        }
+
+        function restoreState(state) {
+            if (!state) return;
+            
+            // Restore filter states
+            currentFilter = state.filter || 'All';
+            currentSort = state.sort || 'rating';
+            currentPriceFilter = state.priceFilter || 'all';
+            advancedFilters = state.advancedFilters || { minRating: 0, minDownloads: 0 };
+            searchInput.value = state.search || '';
+            
+            // Update UI elements
+            updateCategoryTabs();
+            sortSelector.value = currentSort;
+            priceFilter.value = currentPriceFilter;
+            
+            // Close any open modal
+            if (state.modal) {
+                closeAllModals();
+            }
+            
+            // Re-apply filters
+            filterAndSortApps();
+            
+            // Update title
+            document.getElementById('currentCategoryTitle').innerHTML = 
+                `<i class="fas fa-th-large"></i> ${currentFilter === 'All' ? 'All Apps' : currentFilter}`;
+        }
+
+        function goBack() {
+            if (currentHistoryIndex > 0) {
+                currentHistoryIndex--;
+                const previousState = navigationHistory[currentHistoryIndex];
+                restoreState(previousState);
+                updateBackButton();
+            }
+        }
+
+        function updateBackButton() {
+            if (currentHistoryIndex > 0) {
+                historyBackBtn.classList.add('show');
+            } else {
+                historyBackBtn.classList.remove('show');
+            }
+        }
+
+        // =======================
+        // BACKGROUND DOWNLOAD SYSTEM
+        // =======================
+        window.downloadApp = async function(app) {
+            const downloadId = `download_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+            
+            // Show download progress modal
+            const downloadModal = createDownloadProgressModal(downloadId, app.name);
+            document.body.appendChild(downloadModal);
+            
+            // Simulate download progress
+            simulateDownloadProgress(downloadId, app);
+            
+            // Start actual download in background
+            startBackgroundDownload(downloadId, app);
+            
+            // Add to history
+            addToHistory(getCurrentState());
+        }
+
+        function createDownloadProgressModal(downloadId, appName) {
+            const modal = document.createElement('div');
+            modal.className = 'download-progress';
+            modal.id = `download-${downloadId}`;
+            modal.innerHTML = `
+                <div class="download-header">
+                    <div class="download-title">
+                        <i class="fas fa-download"></i>
+                        <span>Downloading ${appName}</span>
+                    </div>
+                    <button class="close-download" onclick="window.cancelDownload('${downloadId}')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar-${downloadId}"></div>
+                </div>
+                <div class="download-info">
+                    <span id="progress-text-${downloadId}">Starting download...</span>
+                    <span id="speed-text-${downloadId}"></span>
+                </div>
+            `;
+            
+            // Show modal
+            setTimeout(() => modal.classList.add('show'), 10);
+            
+            return modal;
+        }
+
+        function simulateDownloadProgress(downloadId, app) {
+            let progress = 0;
+            const progressBar = document.getElementById(`progress-bar-${downloadId}`);
+            const progressText = document.getElementById(`progress-text-${downloadId}`);
+            const speedText = document.getElementById(`speed-text-${downloadId}`);
+            
+            const interval = setInterval(() => {
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    progressBar.style.width = '100%';
+                    progressText.textContent = 'Download complete!';
+                    speedText.textContent = '';
+                    
+                    // Auto-close after 2 seconds
+                    setTimeout(() => {
+                        const modal = document.getElementById(`download-${downloadId}`);
+                        if (modal) {
+                            modal.classList.remove('show');
+                            setTimeout(() => modal.remove(), 300);
+                        }
+                    }, 2000);
+                    
+                    return;
+                }
+                
+                // Simulate download speed
+                const increment = Math.random() * 5 + 1; // 1-6% per interval
+                progress = Math.min(progress + increment, 100);
+                
+                // Update progress bar
+                progressBar.style.width = `${progress}%`;
+                
+                // Update text
+                progressText.textContent = `Downloading... ${Math.round(progress)}%`;
+                
+                // Simulate download speed
+                const speed = Math.random() * 2 + 0.5; // 0.5-2.5 MB/s
+                speedText.textContent = `${speed.toFixed(1)} MB/s`;
+                
+            }, 200); // Update every 200ms
+            
+            // Store interval for cancellation
+            activeDownloads.set(downloadId, {
+                interval,
+                progress,
+                app,
+                startTime: Date.now()
+            });
+        }
+
+        window.cancelDownload = function(downloadId) {
+            const download = activeDownloads.get(downloadId);
+            if (download) {
+                clearInterval(download.interval);
+                activeDownloads.delete(downloadId);
+            }
+            
+            // Remove modal
+            const modal = document.getElementById(`download-${downloadId}`);
+            if (modal) {
+                modal.classList.remove('show');
+                setTimeout(() => modal.remove(), 300);
+            }
+            
+            showToast('Download cancelled', 'warning');
+        }
+
+        function startBackgroundDownload(downloadId, app) {
+            // Create invisible iframe for background download
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.style.position = 'absolute';
+            iframe.style.left = '-9999px';
+            iframe.style.top = '-9999px';
+            iframe.style.width = '1px';
+            iframe.style.height = '1px';
+            
+            // Handle different download sources
+            let downloadUrl = app.downloadLink;
+            
+            if (downloadUrl && downloadUrl.includes('github.com')) {
+                // Convert GitHub URL to raw URL for direct download
+                downloadUrl = downloadUrl
+                    .replace('github.com', 'raw.githubusercontent.com')
+                    .replace('/blob/', '/');
+            } else if (app.apkFile) {
+                // Use relative APK file
+                downloadUrl = app.apkFile.startsWith('http') ? 
+                    app.apkFile : 
+                    `${window.location.origin}/${app.apkFile}`;
+            }
+            
+            if (downloadUrl) {
+                // Set iframe source to trigger download
+                iframe.src = downloadUrl;
+                document.body.appendChild(iframe);
+                
+                // Clean up after download starts
+                setTimeout(() => {
+                    if (iframe.parentNode) {
+                        iframe.parentNode.removeChild(iframe);
+                    }
+                }, 1000);
+                
+                // Update download count
+                updateDownloadCount(app.id);
+            } else {
+                // Show error if no download URL
+                setTimeout(() => {
+                    const download = activeDownloads.get(downloadId);
+                    if (download) {
+                        clearInterval(download.interval);
+                        activeDownloads.delete(downloadId);
+                        
+                        const modal = document.getElementById(`download-${downloadId}`);
+                        if (modal) {
+                            modal.classList.remove('show');
+                            setTimeout(() => {
+                                if (modal.parentNode) modal.parentNode.remove();
+                            }, 300);
+                        }
+                        
+                        showToast('Download link not available', 'error');
+                    }
+                }, 1000);
+            }
+        }
+
+        function updateDownloadCount(appId) {
+            // Update local statistics
+            const totalDownloads = parseInt(totalDownloadsStat.textContent.replace(/[^0-9]/g, '')) || 0;
+            totalDownloadsStat.textContent = formatNumber(totalDownloads + 1);
+            
+            // You can add Firebase update here if needed
+            console.log(`Downloaded app with ID: ${appId}`);
+        }
+
+        // =======================
+        // BACK BUTTON HANDLING (Mobile Browser)
+        // =======================
+        function setupBackButtonHandler() {
+            // Initialize history state
+            window.history.replaceState({ index: 0 }, '');
+            
+            window.onpopstate = function(event) {
+                if (event.state && event.state.index > 0) {
+                    // Go back in our navigation history
+                    goBack();
+                    
+                    // Push new state to prevent browser navigation
+                    window.history.pushState(
+                        { index: event.state.index - 1 },
+                        ''
+                    );
+                }
+            };
+            
+            // Push initial state
+            window.history.pushState({ index: 1 }, '');
+            addToHistory(getCurrentState());
+        }
+
+        // =======================
+        // HELPER FUNCTIONS
+        // =======================
         function getStars(rating) {
             let stars = '';
             const fullStars = Math.floor(rating);
@@ -1547,16 +2039,35 @@
             return num.toString();
         }
 
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast-message toast-${type}`;
+            toast.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => toast.classList.add('show'), 10);
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
         // =======================
-        // ANIMATION HELPERS
+        // MODAL MANAGEMENT
         // =======================
         function openModalById(id) {
             const el = document.getElementById(id);
             if (el) {
                 el.style.display = 'flex';
-                void el.offsetWidth; // Trigger reflow
+                void el.offsetWidth;
                 el.classList.add('show');
                 document.body.classList.add('modal-open');
+                addToHistory(getCurrentState());
             }
         }
 
@@ -1566,22 +2077,24 @@
                 el.classList.remove('show');
                 setTimeout(() => {
                     el.style.display = 'none';
-                    document.body.classList.remove('modal-open');
+                    const openModals = document.querySelectorAll('.modal.show');
+                    if (openModals.length === 0) {
+                        document.body.classList.remove('modal-open');
+                    }
                 }, 300);
+                addToHistory(getCurrentState());
             }
         }
 
-        // Close modal when clicking outside (only for desktop)
-        function setupModalCloseOnOutsideClick() {
-            document.querySelectorAll('.modal').forEach(modal => {
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal && window.innerWidth >= 768) {
-                        closeModalById(modal.id);
-                    }
-                });
+        function closeAllModals() {
+            document.querySelectorAll('.modal.show').forEach(modal => {
+                closeModalById(modal.id);
             });
         }
 
+        // =======================
+        // APP DETAILS MODAL
+        // =======================
         window.openAppDetails = function(app) {
             const modal = document.getElementById('appModal');
             const priceDisplay = app.priceType === 'paid' && app.price ? 
@@ -1598,6 +2111,9 @@
                 `<div class="app-detail-tags">
                     ${app.tags.map(tag => `<span class="detail-tag">${tag}</span>`).join('')}
                 </div>` : '';
+            
+            const isPaid = app.priceType === 'paid' && app.price;
+            const downloadText = isPaid ? `Purchase ($${parseFloat(app.price).toFixed(2)})` : 'Install';
             
             modal.innerHTML = `
                 <div class="modal-content">
@@ -1634,10 +2150,15 @@
                                 </div>
                             </div>
                             
-                            <button class="install-btn ${app.priceType === 'paid' ? 'paid' : ''}" onclick="window.open('${app.downloadLink}', '_blank')">
-                                <i class="fas fa-download"></i> 
-                                ${app.priceType === 'paid' && app.price ? `Purchase ($${parseFloat(app.price).toFixed(2)})` : 'Install'}
+                            <button class="install-btn ${isPaid ? 'paid' : ''}" id="downloadBtn" data-app-id="${app.id}">
+                                <i class="fas fa-download"></i> ${downloadText}
                             </button>
+                            
+                            ${isPaid ? `
+                                <button class="install-btn" style="margin-top: 10px; background: #666;" onclick="window.showPaymentInfo('${app.name}', ${parseFloat(app.price).toFixed(2)})">
+                                    <i class="fas fa-info-circle"></i> Payment Instructions
+                                </button>
+                            ` : ''}
                         </div>
                     </div>
                     <div class="app-description">
@@ -1648,10 +2169,83 @@
                 </div>
             `;
             
+            modal.querySelector('#downloadBtn').onclick = function() {
+                if (isPaid) {
+                    window.showPaymentInfo(app.name, parseFloat(app.price).toFixed(2));
+                } else {
+                    window.downloadApp(app);
+                }
+            };
+            
             modal.querySelector('.close-btn').onclick = () => closeModalById('appModal');
             openModalById('appModal');
         }
 
+        window.showPaymentInfo = function(appName, price) {
+            const paymentModal = document.createElement('div');
+            paymentModal.className = 'modal';
+            paymentModal.id = 'paymentModal';
+            paymentModal.innerHTML = `
+                <div class="modal-content" style="max-width: 500px;">
+                    <div class="modal-header">
+                        <h3 style="flex: 1; margin: 0;">
+                            <i class="fas fa-shopping-cart"></i> Purchase ${appName}
+                        </h3>
+                        <span class="close-btn" onclick="closeModalById('paymentModal')">&times;</span>
+                    </div>
+                    <div style="padding: 20px;">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="font-size: 48px; color: var(--primary); margin-bottom: 10px;">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <h3 style="margin-bottom: 10px;">Premium App - $${price}</h3>
+                            <p style="color: #666; margin-bottom: 20px;">
+                                This is a premium application. To download, please complete the payment.
+                            </p>
+                        </div>
+                        
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 12px; margin-bottom: 20px;">
+                            <h4 style="margin-bottom: 10px;">
+                                <i class="fas fa-credit-card"></i> Payment Methods
+                            </h4>
+                            <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+                                <div style="flex: 1; min-width: 120px; padding: 10px; background: white; border-radius: 8px; text-align: center;">
+                                    <i class="fab fa-paypal" style="color: #003087; font-size: 24px;"></i>
+                                    <div style="font-size: 12px; margin-top: 5px;">PayPal</div>
+                                </div>
+                                <div style="flex: 1; min-width: 120px; padding: 10px; background: white; border-radius: 8px; text-align: center;">
+                                    <i class="fas fa-university" style="color: #28a745; font-size: 24px;"></i>
+                                    <div style="font-size: 12px; margin-top: 5px;">Bank Transfer</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: #fff8e1; padding: 15px; border-radius: 12px; margin-bottom: 20px;">
+                            <h4 style="margin-bottom: 10px;">
+                                <i class="fas fa-envelope"></i> Contact for Payment
+                            </h4>
+                            <p style="margin-bottom: 10px;">
+                                <strong>Email:</strong> your-email@example.com
+                            </p>
+                            <p>
+                                Send payment confirmation to receive download link.
+                            </p>
+                        </div>
+                        
+                        <button class="install-btn" onclick="closeModalById('paymentModal')" style="width: 100%;">
+                            <i class="fas fa-times"></i> Close
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(paymentModal);
+            openModalById('paymentModal');
+        }
+
+        // =======================
+        // APP RENDERING
+        // =======================
         function renderApps(apps, container) {
             container.innerHTML = '';
             
@@ -1670,7 +2264,7 @@
                 const card = document.createElement('div');
                 card.className = `app-card ${app.featured ? 'featured' : ''}`;
                 card.style.animation = 'none';
-                card.offsetHeight; // trigger reflow
+                card.offsetHeight;
                 card.style.animation = `cardEntrance 0.5s ease forwards ${index * 0.05}s`;
 
                 const priceHtml = app.priceType === 'paid' && app.price ? 
@@ -1706,32 +2300,34 @@
                         ${priceHtml}
                     </div>
                 `;
-                card.onclick = () => window.openAppDetails(app);
+                card.onclick = () => {
+                    window.openAppDetails(app);
+                    addToHistory(getCurrentState());
+                };
                 container.appendChild(card);
             });
         }
 
+        // =======================
+        // FILTERING & SORTING
+        // =======================
         function filterAndSortApps() {
             let filtered = [...allApps];
             
-            // Apply category filter
             if (currentFilter === 'Featured') {
                 filtered = filtered.filter(app => app.featured);
             } else if (currentFilter !== 'All') {
                 filtered = filtered.filter(app => app.category && app.category.toLowerCase() === currentFilter.toLowerCase());
             }
             
-            // Apply price filter
             if (currentPriceFilter === 'free') {
                 filtered = filtered.filter(app => app.priceType !== 'paid');
             } else if (currentPriceFilter === 'paid') {
                 filtered = filtered.filter(app => app.priceType === 'paid' && app.price);
             }
             
-            // Apply status filter - always show active only for mobile
             filtered = filtered.filter(app => app.status !== 'inactive');
             
-            // Apply advanced filters
             if (advancedFilters.minRating > 0) {
                 filtered = filtered.filter(app => app.rating >= advancedFilters.minRating);
             }
@@ -1740,7 +2336,6 @@
                 filtered = filtered.filter(app => (app.downloads || 0) >= advancedFilters.minDownloads);
             }
             
-            // Apply search
             const term = searchInput.value.toLowerCase();
             if (term) {
                 filtered = filtered.filter(app => 
@@ -1751,29 +2346,19 @@
                 );
             }
             
-            // Sort
             filtered.sort((a, b) => {
                 switch(currentSort) {
-                    case 'rating':
-                        return b.rating - a.rating;
-                    case 'name':
-                        return a.name.localeCompare(b.name);
-                    case 'downloads':
-                        return (b.downloads || 0) - (a.downloads || 0);
-                    case 'newest':
-                        return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
-                    default:
-                        return b.rating - a.rating;
+                    case 'rating': return b.rating - a.rating;
+                    case 'name': return a.name.localeCompare(b.name);
+                    case 'downloads': return (b.downloads || 0) - (a.downloads || 0);
+                    case 'newest': return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+                    default: return b.rating - a.rating;
                 }
             });
             
-            // Update app count
             appCount.textContent = filtered.length;
-            
-            // Render main grid
             renderApps(filtered, mainAppGrid);
             
-            // Render top charts (always based on rating)
             if (!term) {
                 const topApps = [...allApps]
                     .filter(app => app.status !== 'inactive')
@@ -1786,16 +2371,43 @@
             }
         }
 
-        function updateStatistics() {
-            const totalDownloads = allApps.reduce((sum, app) => sum + (parseInt(app.downloads) || 0), 0);
-            const featuredCount = allApps.filter(app => app.featured && app.status !== 'inactive').length;
-            
-            totalDownloadsStat.textContent = formatNumber(totalDownloads);
-            featuredAppsStat.textContent = featuredCount;
+        function updateCategoryTabs() {
+            categoryTabs.querySelectorAll('button').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.category === currentFilter) {
+                    btn.classList.add('active');
+                }
+            });
         }
 
+        // =======================
+        // INITIALIZATION
+        // =======================
+        onValue(appsRef, (snap) => {
+            const data = snap.val();
+            allApps = [];
+            for (let id in data) {
+                const app = { id, ...data[id] };
+                app.rating = parseFloat(app.rating) || 0;
+                app.downloads = parseInt(app.downloads) || 0;
+                app.price = parseFloat(app.price) || 0;
+                allApps.push(app);
+            }
+            
+            // Update statistics
+            const totalDownloads = allApps.reduce((sum, app) => sum + (parseInt(app.downloads) || 0), 0);
+            const featuredCount = allApps.filter(app => app.featured && app.status !== 'inactive').length;
+            totalDownloadsStat.textContent = formatNumber(totalDownloads);
+            featuredAppsStat.textContent = featuredCount;
+            
+            filterAndSortApps();
+            loadingScreen.classList.add('hidden');
+            
+            // Add initial state to history
+            addToHistory(getCurrentState());
+        });
+
         function initializeSettings() {
-            // Load saved settings from localStorage
             const savedSettings = JSON.parse(localStorage.getItem('apkStoreSettings')) || {
                 autoUpdate: true,
                 darkMode: false,
@@ -1803,21 +2415,15 @@
                 notifications: true
             };
             
-            // Apply saved settings to toggles
             autoUpdateToggle.checked = savedSettings.autoUpdate;
             darkModeToggle.checked = savedSettings.darkMode;
             dataSaverToggle.checked = savedSettings.dataSaver;
             notificationsToggle.checked = savedSettings.notifications;
             
-            // Apply dark mode if enabled
             if (savedSettings.darkMode) {
-                document.documentElement.style.setProperty('--bg-color', '#1a1a1a');
-                document.documentElement.style.setProperty('--text-main', '#ffffff');
-                document.documentElement.style.setProperty('--text-sub', '#cccccc');
-                document.documentElement.style.setProperty('--glass-bg', 'rgba(30, 30, 30, 0.85)');
+                applyDarkTheme();
             }
             
-            // Add event listeners to save settings
             autoUpdateToggle.addEventListener('change', saveSettings);
             darkModeToggle.addEventListener('change', saveSettings);
             dataSaverToggle.addEventListener('change', saveSettings);
@@ -1834,42 +2440,45 @@
             
             localStorage.setItem('apkStoreSettings', JSON.stringify(settings));
             
-            // Apply dark mode immediately
             if (settings.darkMode) {
-                document.documentElement.style.setProperty('--bg-color', '#1a1a1a');
-                document.documentElement.style.setProperty('--text-main', '#ffffff');
-                document.documentElement.style.setProperty('--text-sub', '#cccccc');
-                document.documentElement.style.setProperty('--glass-bg', 'rgba(30, 30, 30, 0.85)');
+                applyDarkTheme();
             } else {
-                document.documentElement.style.setProperty('--bg-color', '#F0F2F5');
-                document.documentElement.style.setProperty('--text-main', '#1a1a1a');
-                document.documentElement.style.setProperty('--text-sub', '#5f6368');
-                document.documentElement.style.setProperty('--glass-bg', 'rgba(255, 255, 255, 0.85)');
+                applyLightTheme();
             }
         }
 
-        // INIT
-        onValue(appsRef, (snap) => {
-            const data = snap.val();
-            allApps = [];
-            for (let id in data) {
-                const app = { id, ...data[id] };
-                app.rating = parseFloat(app.rating) || 0;
-                app.downloads = parseInt(app.downloads) || 0;
-                app.price = parseFloat(app.price) || 0;
-                allApps.push(app);
-            }
-            
-            updateStatistics();
-            filterAndSortApps();
-            loadingScreen.classList.add('hidden');
-        });
+        function applyDarkTheme() {
+            document.documentElement.style.setProperty('--bg-color', '#1a1a1a');
+            document.documentElement.style.setProperty('--bg-secondary', '#2d2d2d');
+            document.documentElement.style.setProperty('--card-bg', '#2d2d2d');
+            document.documentElement.style.setProperty('--text-main', '#ffffff');
+            document.documentElement.style.setProperty('--text-secondary', '#cccccc');
+            document.documentElement.style.setProperty('--text-tertiary', '#999999');
+            document.documentElement.style.setProperty('--border-color', '#444444');
+            document.documentElement.style.setProperty('--glass-bg', 'rgba(45, 45, 45, 0.95)');
+        }
 
-        // Initialize settings
+        function applyLightTheme() {
+            document.documentElement.style.setProperty('--bg-color', '#ffffff');
+            document.documentElement.style.setProperty('--bg-secondary', '#f8f9fa');
+            document.documentElement.style.setProperty('--card-bg', '#ffffff');
+            document.documentElement.style.setProperty('--text-main', '#1a1a1a');
+            document.documentElement.style.setProperty('--text-secondary', '#5f6368');
+            document.documentElement.style.setProperty('--text-tertiary', '#80868b');
+            document.documentElement.style.setProperty('--border-color', '#e0e0e0');
+            document.documentElement.style.setProperty('--glass-bg', 'rgba(255, 255, 255, 0.95)');
+        }
+
+        // =======================
+        // EVENT LISTENERS
+        // =======================
         initializeSettings();
-        setupModalCloseOnOutsideClick();
+        setupBackButtonHandler();
 
-        // Event Listeners
+        // History back button
+        historyBackBtn.addEventListener('click', goBack);
+
+        // Category tabs
         categoryTabs.querySelectorAll('button').forEach(btn => {
             btn.addEventListener('click', () => {
                 categoryTabs.querySelector('.active').classList.remove('active');
@@ -1877,23 +2486,35 @@
                 currentFilter = btn.dataset.category;
                 document.getElementById('currentCategoryTitle').innerHTML = 
                     `<i class="fas fa-th-large"></i> ${currentFilter === 'All' ? 'All Apps' : currentFilter}`;
+                addToHistory(getCurrentState());
                 filterAndSortApps();
             });
         });
 
-        searchInput.addEventListener('input', filterAndSortApps);
-        
+        // Search
+        let searchTimeout;
+        searchInput.addEventListener('input', () => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                addToHistory(getCurrentState());
+                filterAndSortApps();
+            }, 300);
+        });
+
+        // Sorting and filtering
         sortSelector.addEventListener('change', (e) => {
             currentSort = e.target.value;
+            addToHistory(getCurrentState());
             filterAndSortApps();
         });
         
         priceFilter.addEventListener('change', (e) => {
             currentPriceFilter = e.target.value;
+            addToHistory(getCurrentState());
             filterAndSortApps();
         });
 
-        // Filter Modal
+        // Filter modal
         document.getElementById('openFilterBtn').addEventListener('click', () => openModalById('filterModal'));
         
         document.querySelectorAll('.filter-option').forEach(option => {
@@ -1914,22 +2535,18 @@
             sortSelector.value = sort;
             
             closeModalById('filterModal');
+            addToHistory(getCurrentState());
             filterAndSortApps();
         });
         
         document.getElementById('resetFiltersBtn').addEventListener('click', () => {
-            advancedFilters = {
-                minRating: 0,
-                minDownloads: 0
-            };
+            advancedFilters = { minRating: 0, minDownloads: 0 };
             currentSort = 'rating';
             currentPriceFilter = 'all';
             
-            // Reset UI elements
             sortSelector.value = 'rating';
             priceFilter.value = 'all';
             
-            // Reset filter options
             document.querySelectorAll('.filter-option').forEach(option => {
                 option.classList.remove('active');
                 if (option.dataset.rating === '0' || option.dataset.downloads === '0' || option.dataset.sort === 'rating') {
@@ -1938,10 +2555,11 @@
             });
             
             closeModalById('filterModal');
+            addToHistory(getCurrentState());
             filterAndSortApps();
         });
 
-        // Modal Management
+        // Modals
         document.getElementById('openProfileBtn').addEventListener('click', () => openModalById('profileModal'));
         document.getElementById('openSettingsBtn').addEventListener('click', () => {
             closeModalById('profileModal');
@@ -1950,10 +2568,10 @@
         
         document.getElementById('favoritesBtn').addEventListener('click', () => {
             currentFilter = 'Featured';
-            categoryTabs.querySelector('.active').classList.remove('active');
-            categoryTabs.querySelector('[data-category="Featured"]').classList.add('active');
+            updateCategoryTabs();
             document.getElementById('currentCategoryTitle').innerHTML = 
                 `<i class="fas fa-heart"></i> Favorites`;
+            addToHistory(getCurrentState());
             filterAndSortApps();
         });
 
@@ -1961,33 +2579,41 @@
             btn.addEventListener('click', (e) => closeModalById(e.target.dataset.modalId));
         });
 
-        // Add keyboard support for modals
+        // Touch gestures for mobile
+        let touchStartY = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.changedTouches[0].screenY;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            const touchEndY = e.changedTouches[0].screenY;
+            const modal = document.querySelector('.modal.show');
+            
+            if (modal && touchEndY - touchStartY > 100 && window.innerWidth < 768) {
+                closeModalById(modal.id);
+            }
+        });
+
+        // Keyboard support
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 const openModals = document.querySelectorAll('.modal.show');
                 if (openModals.length > 0) {
                     closeModalById(openModals[openModals.length - 1].id);
                 }
+            } else if (e.key === 'ArrowLeft' && e.altKey) {
+                // Alt+Left arrow for back navigation
+                e.preventDefault();
+                goBack();
             }
         });
 
-        // Add touch gesture support for mobile
-        let touchStartY = 0;
-        let touchEndY = 0;
-
-        document.addEventListener('touchstart', (e) => {
-            touchStartY = e.changedTouches[0].screenY;
-        });
-
-        document.addEventListener('touchend', (e) => {
-            touchEndY = e.changedTouches[0].screenY;
-            const modal = document.querySelector('.modal.show');
-            
-            // Swipe down to close modal on mobile
-            if (modal && touchEndY - touchStartY > 100 && window.innerWidth < 768) {
-                closeModalById(modal.id);
+        // Prevent pull-to-refresh when modals are open
+        document.addEventListener('touchmove', (e) => {
+            if (document.querySelector('.modal.show')) {
+                e.preventDefault();
             }
-        });
+        }, { passive: false });
     </script>
 </body>
 </html>
